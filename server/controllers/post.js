@@ -19,17 +19,18 @@ res.json("from controller")
 }
 export const addPost = async (req, res) => {
     try {
-        console.log("db res", res)
-        const q = "INSERT INTO posts (title, `desc`, date, uid, cat) VALUES (?, ?, ?, ?, ?)";
-        const values = [
+        // console.log("db res", res)
+        const q = "INSERT INTO posts (title, `desc`, img, date, cat) VALUES (?, ?, ?, ?, ?)";
+        console.log("req.body", req.body )
+        const values = [  
             req.body.title,
             req.body.desc,
-            // req.body.img,
+            req.body.img,
             req.body.date,
-            2,
-            "robotics"
+            req.body.cat
             
         ];
+        console.log("values check", values)
         await executeQuery(q, values); // Execute the SQL query
         return res.json("Post has been created");
     } catch (err) {

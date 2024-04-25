@@ -23,7 +23,7 @@ const createDbPool = async () => {
 // Function to execute SQL queries
 export const executeQuery = async (sql, params = []) => {
     try {
-        console.log("dbbbbb", sql)
+        // console.log("dbbbbb", sql)
         const pool = await createDbPool();
         const [rows, fields] = await pool.execute(sql, params);
         return rows;
