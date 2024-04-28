@@ -15,20 +15,34 @@ export const getPosts = async (req, res) => {
     }
 };
 export const getPost = (req, res) => {
-res.json("from controller")
+    res.json("from controller")
 }
 export const addPost = async (req, res) => {
     try {
         // console.log("db res", res)
-        const q = "INSERT INTO posts (title, `desc`, img, date, cat) VALUES (?, ?, ?, ?, ?)";
-        console.log("req.body", req.body )
-        const values = [  
+        const q = "INSERT INTO posts (title, `desc`, img, date, cat, objectives, architecturedesc, component, systemSetup, systemSetupdescription, systemSecondSetupdescription, systemSetupThreedescription, systemImpledescription, systemImpledescriptionTwo, systemImpledescriptionThree, systemImpledescriptionFour, systemImpledescriptionFive, conclusion, `references`, acknowledment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        console.log("req.body", req.body)
+        const values = [
             req.body.title,
             req.body.desc,
             req.body.img,
             req.body.date,
-            req.body.cat
-            
+            req.body.cat,
+            req.body.objectives,
+            req.body.architecturedesc,
+            req.body.component,
+            req.body.systemSetup,
+            req.body.systemSetupdescription,
+            req.body.systemSecondSetupdescription,
+            req.body.systemSetupThreedescription,
+            req.body.systemImpledescription,
+            req.body.systemImpledescriptionTwo,
+            req.body.systemImpledescriptionThree,
+            req.body.systemImpledescriptionFour,
+            req.body.systemImpledescriptionFive,
+            req.body.conclusion,
+            req.body.references,
+            req.body.acknowledment
         ];
         console.log("values check", values)
         await executeQuery(q, values); // Execute the SQL query
@@ -40,8 +54,8 @@ export const addPost = async (req, res) => {
 }
 
 export const deletePost = (req, res) => {
-res.json("from controller")
+    res.json("from controller")
 }
 export const updatePost = (req, res) => {
-res.json("from controller")
+    res.json("from controller")
 }
