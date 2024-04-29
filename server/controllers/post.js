@@ -7,7 +7,7 @@ export const getPosts = async (req, res) => {
     try {
         const gpost = "SELECT * FROM posts";
         const posts = await executeQuery(gpost);
-        console.log("datacheck", posts);
+        // console.log("datacheck", posts);
         return res.status(200).json(posts);
     } catch (err) {
         console.error("Error fetching posts:", err);
@@ -21,7 +21,7 @@ export const addPost = async (req, res) => {
     try {
         // console.log("db res", res)
         const q = "INSERT INTO posts (title, `desc`, img, date, cat, objectives, architecturedesc, component, systemSetup, systemSetupdescription, systemSecondSetupdescription, systemSetupThreedescription, systemImpledescription, systemImpledescriptionTwo, systemImpledescriptionThree, systemImpledescriptionFour, systemImpledescriptionFive, conclusion, `references`, acknowledment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        console.log("req.body", req.body)
+        console.log("req.body!!!!!!!!!", req.body)
         const values = [
             req.body.title,
             req.body.desc,
@@ -44,7 +44,7 @@ export const addPost = async (req, res) => {
             req.body.references,
             req.body.acknowledment
         ];
-        console.log("values check", values)
+        // console.log("values check", values)
         await executeQuery(q, values); // Execute the SQL query
         return res.json("Post has been created");
     } catch (err) {
