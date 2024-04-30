@@ -8,7 +8,6 @@ app.use(express.json())
 app.use(cors());
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    console.log("reqfiles!!!!!!!!!!", file)
     cb(null, '../client/public/upload')
   },
   filename: function (req, file, cb) {
@@ -19,7 +18,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage })
 
 
-// app.post('/api/upload', upload.array('images', 10), function (req, res) {
+// app.post('/api/upload', upload.single('file'), function (req, res) {
 //   console.log("index",  req.file);
 //   const file = req.file;
 //   res.status(200).json(file.filename)
@@ -38,8 +37,15 @@ const cpUpload = upload.fields([
   { name: 'impImg4', maxCount: 1 }
 ]);
 
-app.post('/api/upload', cpUpload , function (req, res) {
+app.post('/api/upload', cpUpload, function (req, res) {
   console.log("Uploaded files:", req.files);
+  
+  // Here req.files contains an object where the keys are the field names ('titleImage', 'componentsImg')
+  // and the values are arrays of uploaded files
+  
+  // Handle each file array as needed
+  
+  // Example: Pushing the filenames of the uploaded files to an array
   const filenames = {};
   for (const fieldName in req.files) {
     filenames[fieldName] = req.files[fieldName].map(file => file.filename);
@@ -47,7 +53,6 @@ app.post('/api/upload', cpUpload , function (req, res) {
   
   res.status(200).json({ filenames });
 });
-
 app.use("/api/posts", postRouter)
 
 
