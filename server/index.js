@@ -8,7 +8,7 @@ app.use(express.json())
 app.use(cors());
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, '../client/public/upload')
+    cb(null, '../client/src/upload')
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
@@ -39,7 +39,6 @@ const cpUpload = upload.fields([
 
 app.post('/api/upload', cpUpload, function (req, res) {
   console.log("Uploaded files:", req.files);
-  
   // Here req.files contains an object where the keys are the field names ('titleImage', 'componentsImg')
   // and the values are arrays of uploaded files
   
