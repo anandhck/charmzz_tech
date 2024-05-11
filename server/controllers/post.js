@@ -5,7 +5,7 @@ import { executeQuery } from "../database/db.js";
 // Controller function to get posts
 export const getPosts = async (req, res) => {
     try {
-        const gpost = "SELECT * FROM posts";
+        const gpost = "SELECT * FROM blogs";
         const posts = await executeQuery(gpost);
         console.log("datacheck", posts);
         return res.status(200).json(posts);
@@ -14,7 +14,17 @@ export const getPosts = async (req, res) => {
         return res.status(500).json({ error: "Internal Server Error" });
     }
 };
-export const getPost = (req, res) => {
+export const getPost =  async (req, res) => {
+     try {
+         const getSinglePost = `SELECT * FROM blogs WHERE id = ${req.params.id}`;
+         console.log("req.params", req.params.id)
+        const posts = await executeQuery(getSinglePost);
+        console.log("datacheck", posts);
+        return res.status(200).json(posts);
+    } catch (err) {
+        console.error("Error fetching posts:", err);
+        return res.status(500).json({ error: "Internal Server Error" });
+    }
     res.json("from controller")
 }
 // export const addPost = async (req, res) => {
@@ -144,16 +154,21 @@ export const addPost = async (req, res) => {
         // console.log("Exact image names:", exactImageNames);
         // console.log("exactImageNames!!", exactImageNames.titleimg)
         // console.log("db res", res)
+        
         const sqlInsert = `
-  INSERT INTO posts (
+  INSERT INTO blogs (
     title,
-    content
+    content,
+    category,
+    coverImage
   ) 
-  VALUES (?, ?)`;
+  VALUES (?, ?, ?, ?)`;
         console.log("req.body", req.body)
         const values = [
             req.body.title,
-            req.body.content
+            req.body.content,
+            req.body.category,
+            req.body.coverImage
 
         ];
         console.log("values check", values)
